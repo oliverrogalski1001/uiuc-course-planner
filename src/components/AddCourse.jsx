@@ -3,7 +3,7 @@ import totalClasses from "../spring2023.json"
 import SelectSubject from "./SelectSubject.jsx"
 import SelectNumber from "./SelectNumber.jsx"
 
-const AddCourse = ({ setCoursePlan, semesterIndex }) => {
+const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
 	const [subject, setSubject] = useState("STAT")
 	const [number, setNumber] = useState("---")
 
@@ -13,17 +13,21 @@ const AddCourse = ({ setCoursePlan, semesterIndex }) => {
 		}
 		const courseObject = totalClasses[subject].filter((course) => course.number === number)[0]
 		const creditHours = parseInt(courseObject.hours.charAt(0))
-		setCoursePlan((prevCourses) => [
-			...prevCourses,
-			{
-				id: prevCourses.length + 1,
-				name: subject + " " + number,
-				title: courseObject.title,
-				semester: semesterIndex,
-				creditHours: creditHours,
-				explorerURL: courseObject.explorerURL
-			}
-		])
+		setCoursePlan((prevCourses) => {
+			const newCourse = [
+				...prevCourses,
+				{
+					id: prevCourses.length + 1,
+					name: subject + " " + number,
+					title: courseObject.title,
+					semester: semesterIndex,
+					creditHours: creditHours,
+					explorerURL: courseObject.explorerURL
+				}
+			]
+			setURL({ data: JSON.stringify(newCourse) })
+			return newCourse
+		})
 	}
 
 	return (
