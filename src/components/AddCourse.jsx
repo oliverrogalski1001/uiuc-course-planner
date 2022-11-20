@@ -3,7 +3,7 @@ import totalClasses from "../spring2023.json"
 import SelectSubject from "./SelectSubject.jsx"
 import SelectNumber from "./SelectNumber.jsx"
 
-const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
+const AddCourse = ({ setCoursePlan, semesterIndex, setURL, urlConvert }) => {
 	const [subject, setSubject] = useState("STAT")
 	const [number, setNumber] = useState("---")
 
@@ -25,7 +25,7 @@ const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
 					explorerURL: courseObject.explorerURL
 				}
 			]
-			setURL({ data: JSON.stringify(newCourse) })
+			setURL({ data: JSON.stringify(urlConvert(newCourse)) })
 			return newCourse
 		})
 	}
