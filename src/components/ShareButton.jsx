@@ -13,7 +13,6 @@ const ShareButton = () => {
 			<button className="btn" onClick={handleClick}>
 				Click to copy the link
 			</button>
-			<!-- TODO -->
 			{show && <h1>copied</h1>}
 		</div>
 	)
