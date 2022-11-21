@@ -3,12 +3,19 @@ import totalClasses from "../spring2023.json"
 import SelectSubject from "./SelectSubject.jsx"
 import SelectNumber from "./SelectNumber.jsx"
 
-const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
+const AddCourse = ({ setCoursePlan, semesterIndex, setURL, urlConvert, coursePlan }) => {
 	const [subject, setSubject] = useState("STAT")
 	const [number, setNumber] = useState("---")
 
 	const handleAddCourse = () => {
-		if (number === "---") {
+		if (
+			number === "---" ||
+			coursePlan.filter((course) => {
+				const courseNameSplit = course.name.split(" ")
+				return courseNameSplit[0] === subject && courseNameSplit[1] === number
+			}).length !== 0
+		) {
+			// TODO
 			return false
 		}
 		const courseObject = totalClasses[subject].filter((course) => course.number === number)[0]
@@ -17,7 +24,7 @@ const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
 			const newCourse = [
 				...prevCourses,
 				{
-					id: prevCourses.length + 1,
+					id: Math.max(prevCourses.map((course) => course.id)) + 1,
 					name: subject + " " + number,
 					title: courseObject.title,
 					semester: semesterIndex,
@@ -25,7 +32,7 @@ const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
 					explorerURL: courseObject.explorerURL
 				}
 			]
-			setURL({ data: JSON.stringify(newCourse) })
+			setURL({ data: JSON.stringify(urlConvert(newCourse)) })
 			return newCourse
 		})
 	}
@@ -43,10 +50,14 @@ const AddCourse = ({ setCoursePlan, semesterIndex, setURL }) => {
 						<SelectNumber subject={subject} number={number} setNumber={setNumber} />
 					</div>
 					<div className="modal-action">
-						<label for={`add-class-${semesterIndex}`} class="btn btn-warning">
+						<label htmlFor={`add-class-${semesterIndex}`} className="btn btn-warning">
 							Cancel
 						</label>
-						<label for={`add-class-${semesterIndex}`} class="btn btn-success" onClick={handleAddCourse}>
+						<label
+							htmlFor={`add-class-${semesterIndex}`}
+							className="btn btn-success"
+							onClick={handleAddCourse}
+						>
 							Done
 						</label>
 					</div>

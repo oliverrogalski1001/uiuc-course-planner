@@ -10,8 +10,8 @@ const SelectNumber = ({ subject, number, setNumber }) => {
 			<h2 className="text-xl pb-2">Select Course Number</h2>
 			<select className="select select-secondary" value={number} onChange={handleChange}>
 				<option disabled>---</option>
-				{totalClasses[subject].map((course) => (
-					<option>{course.number}</option>
+				{totalClasses[subject].map((course, index) => (
+					<option key={index}>{course.number}</option>
 				))}
 			</select>
 		</div>
