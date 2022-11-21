@@ -85,10 +85,10 @@ function App() {
 						handleDelete={handleDelete}
 						setURL={setURL}
 						urlConvert={urlConvert}
+						coursePlan={coursePlan}
 					/>
 				))}
 			</div>
-			<div>{url}</div>
 		</div>
 	)
 }

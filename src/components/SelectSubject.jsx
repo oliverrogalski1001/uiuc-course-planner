@@ -10,8 +10,8 @@ const SelectSubject = ({ subject, setSubject, setNumber }) => {
 		<div className="flex flex-col items-center">
 			<h2 className="text-xl pb-2">Select Subject</h2>
 			<select className="select select-secondary" value={subject} onChange={handleChange}>
-				{Object.keys(totalClasses).map((subject) => (
-					<option>{subject}</option>
+				{Object.keys(totalClasses).map((subject, index) => (
+					<option key={index}>{subject}</option>
 				))}
 			</select>
 		</div>
